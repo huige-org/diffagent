@@ -1,0 +1,24 @@
+{
+  "name": "diffagent",
+  "version": "0.1.0",
+  "description": "An intelligent agent for analyzing and processing code diffs",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "node src/index.js",
+    "test": "jest",
+    "lint": "eslint src --ext .js,.jsx"
+  },
+  "dependencies": {
+    "diff": "^5.1.0",
+    "git-diff-parser": "^0.2.2",
+    "unified": "^10.1.2",
+    "unist-util-visit": "^4.1.2"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "eslint": "^8.36.0"
+  },
+  "keywords": ["diff", "git", "code-analysis", "ai-agent"],
+  "author": "Your Name",
+  "license": "MIT"
+}
