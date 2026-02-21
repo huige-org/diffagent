@@ -39,7 +39,7 @@ class RecommendationGenerator {
       });
     }
     
-    if (changeTypes.feature_addition && changeTypes.feature_addition > 0) {
+    if ((changeTypes.feature || changeTypes.feature_addition) && (changeTypes.feature > 0 || changeTypes.feature_addition > 0)) {
       recommendations.push({
         type: 'review',
         priority: 'medium',
@@ -96,9 +96,9 @@ class RecommendationGenerator {
     const changeTypes = {};
     
     files.forEach(file => {
-      if (file.changeType) {
-        const type = file.changeType;
-        changeTypes[type] = (changeTypes[type] || 0) + 1;
+      const changeType = file.classification?.changeType;
+      if (changeType) {
+        changeTypes[changeType] = (changeTypes[changeType] || 0) + 1;
       }
     });
     

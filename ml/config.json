@@ -1,17 +1,16 @@
 {
-  "model": {
-    "type": "statistical",
-    "features": ["security", "performance", "quality", "test"],
-    "learningRate": 0.01,
-    "epochs": 100
-  },
-  "data": {
-    "trainingPath": "./data/training",
-    "validationPath": "./data/validation",
-    "testPath": "./data/test"
-  },
-  "output": {
-    "modelPath": "./models",
-    "logsPath": "./logs"
+  "enabled": true,
+  "modelPath": "./ml/model.js",
+  "trainingDataPath": "./ml/training-data.json",
+  "weightsPath": "./ml/weights.json",
+  "autoTrain": true,
+  "predictionThreshold": 0.3,
+  "features": {
+    "changeType": true,
+    "language": true,
+    "fileCount": true,
+    "lineChanges": true,
+    "securityPatterns": true,
+    "performancePatterns": true
   }
 }

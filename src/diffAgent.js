@@ -3,6 +3,7 @@ const ChangeClassifier = require('./changeClassifier');
 const RiskAssessor = require('./riskAssessor');
 const RecommendationGenerator = require('./recommendationGenerator');
 const AnalysisSummary = require('./analysisSummary');
+const MLIntegrator = require('./mlIntegrator');
 
 class DiffAgent {
   constructor(config = {}) {
@@ -11,14 +12,16 @@ class DiffAgent {
     this.riskAssessor = new RiskAssessor();
     this.recommendationGenerator = new RecommendationGenerator();
     this.summaryGenerator = new AnalysisSummary();
+    this.mlIntegrator = new MLIntegrator(config);
+    this.config = config;
   }
 
   analyze(diffContent) {
     try {
-      // Parse the diff
+      // Step 1: Parse the diff
       const parsedDiff = this.parser.parse(diffContent);
       
-      // Classify changes for each file
+      // Step 2: Classify each file
       const classifiedFiles = parsedDiff.files.map(file => {
         const classification = this.classifier.classifyFile(file);
         return {
@@ -27,16 +30,37 @@ class DiffAgent {
         };
       });
       
-      // Assess risk
-      const riskScore = this.riskAssessor.assess(classifiedFiles);
+      // Step 3: Assess risk (original)
+      const riskAssessment = this.riskAssessor.assess(classifiedFiles);
       
-      // Generate recommendations
-      const recommendations = this.recommendationGenerator.generateRecommendations(classifiedFiles, riskScore);
+      // Step 4: Generate recommendations (original)
+      const analysisForRecommendations = {
+        files: classifiedFiles,
+        riskScore: riskAssessment,
+        changeTypes: {}
+      };
+      classifiedFiles.forEach(file => {
+        const type = file.classification.changeType;
+        analysisForRecommendations.changeTypes[type] = (analysisForRecommendations.changeTypes[type] || 0) + 1;
+      });
       
-      // Generate summary
-      const summary = this.summaryGenerator.generate(classifiedFiles, riskScore);
+      const recommendations = this.recommendationGenerator.generateRecommendations(analysisForRecommendations);
       
-      // Count change types
+      // Step 5: Apply ML enhancement if enabled and available
+      let mlEnhanced = false;
+      let finalRiskAssessment = riskAssessment;
+      let finalRecommendations = recommendations;
+      
+      if (this.config.enableML !== false && this.mlIntegrator.isAvailable()) {
+        finalRiskAssessment = this.mlIntegrator.enhanceRiskAssessment(classifiedFiles, riskAssessment);
+        finalRecommendations = this.mlIntegrator.enhanceRecommendations(recommendations, classifiedFiles);
+        mlEnhanced = true;
+      }
+      
+      // Step 6: Generate summary
+      const summary = this.summaryGenerator.generate(classifiedFiles, finalRiskAssessment);
+      
+      // Step 7: Count change types
       const changeTypes = {};
       classifiedFiles.forEach(file => {
         const type = file.classification.changeType;
@@ -48,9 +72,10 @@ class DiffAgent {
         error: null,
         summary,
         files: classifiedFiles,
-        riskScore,
+        riskScore: finalRiskAssessment,
         changeTypes,
-        recommendations
+        recommendations: finalRecommendations,
+        mlEnhanced
       };
     } catch (error) {
       console.error('Error in DiffAgent analysis:', error);
@@ -59,9 +84,10 @@ class DiffAgent {
         error: error.message,
         summary: null,
         files: [],
-        riskScore: 0,
+        riskScore: { riskScore: 0, riskLevel: 'low', details: {} },
         changeTypes: {},
-        recommendations: []
+        recommendations: [],
+        mlEnhanced: false
       };
     }
   }

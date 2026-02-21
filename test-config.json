@@ -1,0 +1,8 @@
+{
+  "enableML": true,
+  "ml": {
+    "enabled": true,
+    "modelPath": "./ml/model.js",
+    "trainingDataPath": "./ml/training-data.json"
+  }
+}
