@@ -1,0 +1,25 @@
+{
+  "mongodb": {
+    "uri": "mongodb://diffagent_user:${MONGODB_PASSWORD}@localhost:27017/diffagent_db",
+    "options": {
+      "useNewUrlParser": true,
+      "useUnifiedTopology": true,
+      "serverSelectionTimeoutMS": 5000,
+      "socketTimeoutMS": 45000,
+      "maxPoolSize": 10,
+      "minPoolSize": 2,
+      "maxIdleTimeMS": 30000,
+      "connectTimeoutMS": 10000,
+      "retryWrites": true,
+      "w": "majority",
+      "readPreference": "primary"
+    },
+    "collections": {
+      "analysis_results": "analysis_results",
+      "code_diffs": "code_diffs",
+      "recommendations": "recommendations",
+      "user_preferences": "user_preferences",
+      "performance_metrics": "performance_metrics"
+    }
+  }
+}

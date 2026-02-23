@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiffAgent - 操作演示视频</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🎯 DiffAgent 操作演示</h1>
+            <p>智能代码差异分析平台 - 演示视频</p>
+        </header>
+        
+        <main class="main-content">
+            <div class="video-section">
+                <h2 class="section-title">📺 操作演示视频</h2>
+                <div class="video-container">
+                    <video controls autoplay muted poster="demo-thumb.jpg" style="width: 100%; max-width: 800px; height: auto; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
+                        <source src="/recordings/diffagent-headless-demo-2026-02-22T15-56-05-150Z.webm" type="video/webm">
+                        您的浏览器不支持视频播放。
+                    </video>
+                </div>
+                
+                <div class="video-info">
+                    <h3>📋 视频内容说明</h3>
+                    <ul>
+                        <li>✅ Web 界面加载和初始化</li>
+                        <li>✅ TypeScript 代码差异输入</li>
+                        <li>✅ 智能分析执行过程</li>
+                        <li>✅ 安全问题检测结果</li>
+                        <li>✅ 优化建议展示</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="action-section">
+                <h2 class="section-title">🚀 立即体验</h2>
+                <div class="action-buttons">
+                    <a href="/" class="btn btn-primary">
+                        🎯 开始分析代码
+                    </a>
+                    <a href="/api-docs" class="btn btn-secondary">
+                        📚 API 文档
+                    </a>
+                </div>
+                
+                <div class="features">
+                    <h3>✨ 核心功能</h3>
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <div class="feature-icon">🔍</div>
+                            <div class="feature-text">
+                                <h4>智能分析</h4>
+                                <p>自动识别代码安全风险</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">🛡️</div>
+                            <div class="feature-text">
+                                <h4>安全检测</h4>
+                                <p>发现潜在安全漏洞</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">⚡</div>
+                            <div class="feature-text">
+                                <h4>性能优化</h4>
+                                <p>提供性能改进建议</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">📊</div>
+                            <div class="feature-text">
+                                <h4>可视化报告</h4>
+                                <p>直观展示分析结果</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <p>© 2026 DiffAgent - 智能代码差异分析平台</p>
+        </footer>
+    </div>
+    
+    <script>
+        // 视频播放统计
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.querySelector('video');
+            if (video) {
+                video.addEventListener('play', function() {
+                    console.log('视频开始播放');
+                });
+                video.addEventListener('ended', function() {
+                    console.log('视频播放完成');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

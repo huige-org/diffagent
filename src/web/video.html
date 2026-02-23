@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiffAgent - Demo Video</title>
+    <link rel="stylesheet" href="video.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .video-container {
+            padding: 20px;
+            text-align: center;
+        }
+        .demo-video {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .back-link:hover {
+            background: #2980b9;
+        }
+        .video-info {
+            margin-top: 15px;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>DiffAgent Demo</h1>
+            <p>Web Interface Operation Video</p>
+        </header>
+        
+        <main class="video-container">
+            <h2>操作演示视频</h2>
+            <video class="demo-video" controls autoplay muted>
+                <source src="/recordings/diffagent-demo-20260222-232038.webm" type="video/webm">
+                您的浏览器不支持 WebM 视频格式。
+            </video>
+            <div class="video-info">
+                <p>视频时长: ~3.5秒 | 格式: WebM (VP8) | 大小: 754KB</p>
+                <p>演示内容: TypeScript 代码分析、安全问题检测、结果展示</p>
+            </div>
+            <a href="/" class="back-link">返回主界面</a>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "docker": {
+    "image": "diffagent:latest",
+    "containerName": "diffagent-optimized",
+    "ports": {
+      "internal": 3000,
+      "external": 3000
+    },
+    "volumes": [
+      "./config:/app/config",
+      "./logs:/app/logs"
+    ],
+    "environment": {
+      "NODE_ENV": "production",
+      "LOG_LEVEL": "info"
+    },
+    "healthcheck": {
+      "test": ["CMD", "node", "healthcheck.js"],
+      "interval": "30s",
+      "timeout": "10s",
+      "retries": 3,
+      "startPeriod": "40s"
+    }
+  }
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiffAgent - 智能代码分析平台</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>DiffAgent</h1>
+            <p>智能代码差异分析平台</p>
+        </header>
+        
+        <main class="main-content">
+            <div class="input-section">
+                <h2 class="section-title">输入 Git 差异</h2>
+                <div class="textarea-container">
+                    <textarea id="diffInput" placeholder="在此粘贴您的 git diff 内容...
+
+示例：
+diff --git a/example.ts b/example.ts
+index 123..456
+--- a/example.ts
++++ b/example.ts
+@@ -1,3 +1,5 @@
++// 不安全的 TypeScript 代码
++const userData: any = getUserInput();
+ function processUser(user) {
+-  console.log(&quot;Processing user&quot;);
++  console.log(`Processing user: ${user.name}`);
+ }"></textarea>
+                </div>
+                <button id="analyzeBtn" class="analyze-btn">分析代码</button>
+                <button id="clearBtn" class="clear-btn">清空内容</button>
+                <button id="demoBtn" class="demo-btn">加载演示数据</button>
+            </div>
+            
+            <div class="output-section">
+                <h2 class="section-title">分析结果</h2>
+                <div id="loadingIndicator" class="loading hidden">
+                    <div class="spinner"></div>
+                    <p>正在分析代码，请稍候...</p>
+                </div>
+                <div id="resultsContainer" class="results-container">
+                    <div class="placeholder-message">
+                        <p>请输入 Git 差异内容，点击"分析代码"按钮开始智能分析</p>
+                        <p class="tip">支持 TypeScript、Go、JavaScript 等多种语言</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="footer">
+            <p>DiffAgent v1.0 • 智能代码安全与质量分析</p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

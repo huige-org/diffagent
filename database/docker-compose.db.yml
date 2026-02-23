@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: diffagent-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: diffagent_db
+      POSTGRES_USER: diffagent_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secure_password_123}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U diffagent_user -d diffagent_db"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # MySQL Database  
+  mysql:
+    image: mysql:8.0
+    container_name: diffagent-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: diffagent_db
+      MYSQL_USER: diffagent_user
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-secure_password_123}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_secure_password_123}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/mysql-init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "diffagent_user", "--password=$$MYSQL_PASSWORD"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # MongoDB Database
+  mongodb:
+    image: mongo:6.0
+    container_name: diffagent-mongodb
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: diffagent_db
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_ROOT_PASSWORD:-root_secure_password_123}
+    volumes:
+      - mongodb_data:/data/db
+      - ./database/mongodb-init.js:/docker-entrypoint-initdb.d/init.js
+    ports:
+      - "27017:27017"
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/diffagent_db --quiet
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: diffagent-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --maxmemory 200mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+volumes:
+  postgres_data:
+  mysql_data:
+  mongodb_data:
+  redis_data:

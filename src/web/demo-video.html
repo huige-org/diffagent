@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DiffAgent - Demo Video</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .video-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        video {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>DiffAgent Web Interface Demo</h1>
+        <div class="video-container">
+            <video controls autoplay muted>
+                <source src="/videos/diffagent-demo-20260222-232038.webm" type="video/webm">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <div id="errorMessage" class="error-message" style="display: none;">
+            Video not loading? Try refreshing the page or check the console for errors.
+        </div>
+        <a href="/" class="back-link">← Back to Main Interface</a>
+    </div>
+    
+    <script>
+        // Add error handling for video loading
+        const video = document.querySelector('video');
+        const errorMessage = document.getElementById('errorMessage');
+        
+        video.addEventListener('error', function() {
+            errorMessage.style.display = 'block';
+            console.error('Video failed to load');
+        });
+        
+        video.addEventListener('loadeddata', function() {
+            console.log('Video loaded successfully');
+        });
+    </script>
+</body>
+</html>
